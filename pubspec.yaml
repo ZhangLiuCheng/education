@@ -1,0 +1,54 @@
+name: education
+description: A new Flutter application.
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^0.1.2
+  shared_preferences: ^0.5.6+2
+  flutter_swiper: ^1.1.6
+  flutter_screenutil: ^1.0.2
+  toast: ^0.1.3
+  package_info: ^0.4.0+6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - images/launch_image.png
+    - images/haibao_1.png
+    - images/haibao_2.png
+    - images/haibao_3.png
+    - images/tab_home_on.png
+    - images/tab_home_off.png
+    - images/tab_category_on.png
+    - images/tab_category_off.png
+    - images/tab_my_on.png
+    - images/tab_my_off.png
+    - images/tab_money_on.png
+    - images/tab_money_off.png
+    - images/launch_image.png
+
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
