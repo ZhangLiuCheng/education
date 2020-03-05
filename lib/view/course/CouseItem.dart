@@ -64,7 +64,7 @@ class CouseItem extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                         style: TextStyle(color: Color(0xFF333333),
-                            fontSize: 14,
+                            fontSize: ScreenAdapter.setFont(34),
                             fontWeight: FontWeight.bold)
                     ),
                     Container(
@@ -84,7 +84,7 @@ class CouseItem extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                         style: TextStyle(color: Color(0xFF333333),
-                            fontSize: 14,
+                            fontSize: ScreenAdapter.setFont(30),
                         )
                     ),
                 ],

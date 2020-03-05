@@ -113,7 +113,30 @@ class _CourseDetailPageState extends State<CourseDetailPage> {
                         Expanded(
                             flex: 1,
                             child: Column(
-
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                    Text("中国近代史解说07034",
+                                        textAlign: TextAlign.left,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                        style: TextStyle(color: Color(0xFF333333),
+                                            fontSize: ScreenAdapter.setFont(34),
+                                            fontWeight: FontWeight.bold)
+                                    ),
+                                    Container(
+                                        padding: EdgeInsets.only(
+                                            top: ScreenAdapter.setWidth(10),
+                                            bottom: ScreenAdapter.setWidth(10)),
+                                        child: Text("1.2万次播放",
+                                            textAlign: TextAlign.left,
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                            style: TextStyle(color: Color(0xFF333333),
+                                                fontSize: ScreenAdapter.setFont(30),
+                                            )
+                                        )
+                                    )
+                                ],
                             ),
                         ),
                         CollectWidget(true)

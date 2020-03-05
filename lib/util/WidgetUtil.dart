@@ -23,7 +23,7 @@ class WidgetUtil {
                 child: Text(
                     text,
                     style: TextStyle(
-                        color: Colors.white, fontSize: ScreenAdapter.text(18)
+                        color: Colors.white, fontSize: ScreenAdapter.setFont(18)
                     ),
                 ),
             )
@@ -60,7 +60,7 @@ class WidgetUtil {
             child: AppBar(
                 title: Text(title,
                     style: TextStyle(
-                        fontSize: ScreenAdapter.text(16),
+                        fontSize: ScreenAdapter.setFont(40),
                         fontWeight: FontWeight.normal
                     )
                 ),

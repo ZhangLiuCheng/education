@@ -64,14 +64,14 @@ class HomePageState extends State<HomePage>
     @override
     void initState() {
         super.initState();
-        print("HomePage ===========>>  initState");
+//        print("HomePage ===========>>  initState");
     }
 
     @override
     void dispose() {
         super.dispose();
         _scrollController.dispose();
-        print("HomePage ===========>>  dispose");
+//        print("HomePage ===========>>  dispose");
     }
 
     @override
@@ -202,7 +202,8 @@ class HomePageState extends State<HomePage>
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Color(0xFF666666),
-                        fontSize: ScreenAdapter.setFont(30)),
+                        fontSize: ScreenAdapter.setFont(30)
+                    ),
                 ),
             )
         );
@@ -221,6 +222,7 @@ class HomePageState extends State<HomePage>
 //        int defaultStatus = (page == 1 && _goodsData.length < 10) ? 1 : 0;
         return SliverToBoxAdapter(
             child: LoadmoreWidget(_scrollController,
-                status: 1, loadmoreCallback: _loadmore));
+                status: 1, loadmoreCallback: _loadmore)
+        );
     }
 }
