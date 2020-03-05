@@ -18,8 +18,6 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
 
-    final keyHomePageState = GlobalKey<HomePageState>();
-
     PageController _pageController;
 
     DateTime _lastPressedAdt;
@@ -49,7 +47,6 @@ class _MainPageState extends State<MainPage> {
     }
 
     void _jumpToPage(int index) {
-//        keyHomePageState.currentState.setHideCategory();
         setState(() {
             _selectedIndex = index;
             _pageController.jumpToPage(index);
@@ -59,14 +56,12 @@ class _MainPageState extends State<MainPage> {
     @override
     void initState() {
         super.initState();
-        print("MainPage ---------->  initState");
         _pageController = new PageController(initialPage: 0, keepPage: true);
     }
 
     @override
     void dispose() {
         super.dispose();
-        print("MainPage ---------->  dispose");
         _pageController.dispose();
     }
 
@@ -123,10 +118,6 @@ class _MainPageState extends State<MainPage> {
                     activeIcon: Image.asset(
                         "images/tab_my_on.png", width: _size, height: _size)
                 ),
-//                BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('首页')),
-//                BottomNavigationBarItem(icon: Icon(Icons.category), title: Text('分类')),
-//                BottomNavigationBarItem(icon: Icon(Icons.supervised_user_circle), title: Text('社区')),
-//                BottomNavigationBarItem(icon: Icon(Icons.person), title: Text('我的')),
             ],
             type: BottomNavigationBarType.fixed,
             currentIndex: _selectedIndex,
@@ -143,7 +134,7 @@ class _MainPageState extends State<MainPage> {
             controller: _pageController,
             physics: new NeverScrollableScrollPhysics(),
             children: <Widget>[
-                HomePage(jumpToIndex: _jumpToPage, key: keyHomePageState),
+                HomePage(),
                 MemberPage(),
                 CoursePage(),
                 PersonalPage()
