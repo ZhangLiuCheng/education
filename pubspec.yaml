@@ -28,6 +28,8 @@ flutter:
   uses-material-design: true
 
   assets:
+    - images/loading_empty.png
+    - images/loading_error.png
     - images/default_goods.png
     - images/launch_image.png
     - images/haibao_1.png
@@ -42,6 +44,8 @@ flutter:
     - images/tab_money_on.png
     - images/tab_money_off.png
     - images/launch_image.png
+    - images/icon_collect_off.png
+    - images/icon_collect_on.png
 
   # fonts:
   #   - family: Schyler

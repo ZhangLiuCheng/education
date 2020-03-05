@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:education/util/ScreenAdapter.dart';
+import 'package:education/util/WidgetUtil.dart';
 import 'package:flutter/material.dart';
 
 class CouseItem extends StatelessWidget {
@@ -36,7 +37,7 @@ class CouseItem extends StatelessWidget {
                 child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                        _buildListItemImg(""),
+                        _buildListItemImg("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1583407877438&di=bafb8c48712e565ea6730345ae21b31b&imgtype=0&src=http%3A%2F%2Fh.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2F0dd7912397dda144dac4acc9b2b7d0a20df486f8.jpg"),
                         Expanded(flex: 1, child: _buildListItemDesc(item))
                     ],
                 ),
@@ -48,25 +49,7 @@ class CouseItem extends StatelessWidget {
         double _sizeHeight = ScreenAdapter.setWidth(200);
         return ClipRRect(
             borderRadius: BorderRadius.circular(6),
-            child: CachedNetworkImage(
-                fit: BoxFit.cover,
-                imageUrl: goodsImg,
-                width: _sizeWidth,
-                height: _sizeHeight,
-                placeholder: (context, url) {
-                    return Container(
-                        width: _sizeWidth,
-                        height: _sizeHeight,
-                        alignment: Alignment.center,
-                        color: Color(0xffe0e0e0),
-                        child: Image.asset("images/default_goods.png",
-                            fit: BoxFit.contain,
-                            width: _sizeWidth,
-                            height: _sizeHeight),
-                    );
-                },
-                errorWidget: (context, url, error) => Icon(Icons.error),
-            ),
+            child: WidgetUtil.buildNetworkImage(goodsImg, _sizeWidth, _sizeHeight),
         );
     }
 

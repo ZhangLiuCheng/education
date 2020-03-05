@@ -1,6 +1,6 @@
 import 'package:education/util/CommonUtil.dart';
 import 'package:education/util/ScreenAdapter.dart';
-import 'package:education/view/course/CoursePage.dart';
+import 'package:education/view/course/CourseMainPage.dart';
 import 'package:education/view/home/HomePage.dart';
 import 'package:education/view/personal/PersonalPage.dart';
 import 'package:flutter/material.dart';
@@ -73,10 +73,6 @@ class _MainPageState extends State<MainPage> {
         return WillPopScope(
             child: Scaffold(
                 resizeToAvoidBottomInset: true,
-//                bottomNavigationBar: Container(
-//                    height: 50,
-//                    child: _buildBottomNavigationBar(),
-//                ),
                 bottomNavigationBar: _buildBottomNavigationBar(),
                 body: _buildBody(),
             ), onWillPop: _onBackPress
@@ -104,7 +100,7 @@ class _MainPageState extends State<MainPage> {
                         height: _size)
                 ),
                 BottomNavigationBarItem(
-                    title: Text('课程'),
+                    title: Text('我的课程'),
                     icon: Image.asset(
                         "images/tab_money_off.png", width: _size,
                         height: _size),
@@ -112,7 +108,7 @@ class _MainPageState extends State<MainPage> {
                         "images/tab_money_on.png", width: _size, height: _size)
                 ),
                 BottomNavigationBarItem(
-                    title: Text('我的'),
+                    title: Text('个人中心'),
                     icon: Image.asset(
                         "images/tab_my_off.png", width: _size, height: _size),
                     activeIcon: Image.asset(

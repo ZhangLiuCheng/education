@@ -1,10 +1,12 @@
 import 'dart:async';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import 'ScreenAdapter.dart';
 
 class WidgetUtil {
+
     static buildButton(context, text, color, cb) {
         return GestureDetector(
             onTap: () {
@@ -59,11 +61,34 @@ class WidgetUtil {
                 title: Text(title,
                     style: TextStyle(
                         fontSize: ScreenAdapter.text(16),
-                        fontWeight: FontWeight.normal)
+                        fontWeight: FontWeight.normal
+                    )
                 ),
                 actions: actions,
             ),
             preferredSize: Size.fromHeight(48)
+        );
+    }
+
+    static buildNetworkImage(String url, width, height) {
+        return CachedNetworkImage(
+            fit: BoxFit.cover,
+            imageUrl: url,
+            width: width,
+            height: height,
+            placeholder: (context, url) {
+                return Container(
+                    width: width,
+                    height: height,
+                    alignment: Alignment.center,
+                    color: Color(0xffe0e0e0),
+                    child: Image.asset("images/default_goods.png",
+                        fit: BoxFit.contain,
+                        width: width,
+                        height: height),
+                );
+            },
+            errorWidget: (context, url, error) => Icon(Icons.error),
         );
     }
 
@@ -145,19 +170,4 @@ class WidgetUtil {
         );
     }
 
-    static buildVipIcon(num level) {
-        return Image.asset(
-            level == 1 ? 'images/icon_vip_1.png' : 'images/icon_vip_2.png',
-            width: ScreenAdapter.setWidth(52),
-            height: ScreenAdapter.setWidth(22),
-        );
-    }
-
-    static buildVipTitle(num level, double fontSize,
-        {int level2Color: 0xffffd989}) {
-        return Text(level == 1 ? '超级会员' : '黑金会员',
-            style: TextStyle(
-                fontSize: fontSize,
-                color: level == 1 ? Color(0xff9aa6ab) : Color(level2Color)));
-    }
 }
