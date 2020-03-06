@@ -88,7 +88,8 @@ class _CourseDetailPageState extends State<CourseDetailPage> {
             slivers: <Widget>[
                 _buildImage(),
                 _buildInfo(),
-//                _buildList()
+                _buildVip(),
+                _buildList()
             ],
         );
     }
@@ -97,7 +98,10 @@ class _CourseDetailPageState extends State<CourseDetailPage> {
         return SliverToBoxAdapter(
             child: WidgetUtil.buildNetworkImage(
                 "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1651554874,1038135045&fm=26&gp=0.jpg",
-                MediaQuery.of(context).size.width,
+                MediaQuery
+                    .of(context)
+                    .size
+                    .width,
                 ScreenAdapter.setWidth(400)
             ),
         );
@@ -107,7 +111,8 @@ class _CourseDetailPageState extends State<CourseDetailPage> {
         return SliverToBoxAdapter(
             child: Container(
                 color: Colors.white,
-                padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
+                padding: EdgeInsets.only(
+                    left: 10, right: 10, top: 10, bottom: 10),
                 child: Row(
                     children: <Widget>[
                         Expanded(
@@ -119,7 +124,8 @@ class _CourseDetailPageState extends State<CourseDetailPage> {
                                         textAlign: TextAlign.left,
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 1,
-                                        style: TextStyle(color: Color(0xFF333333),
+                                        style: TextStyle(
+                                            color: Color(0xFF333333),
                                             fontSize: ScreenAdapter.setFont(34),
                                             fontWeight: FontWeight.bold)
                                     ),
@@ -131,8 +137,10 @@ class _CourseDetailPageState extends State<CourseDetailPage> {
                                             textAlign: TextAlign.left,
                                             overflow: TextOverflow.ellipsis,
                                             maxLines: 1,
-                                            style: TextStyle(color: Color(0xFF333333),
-                                                fontSize: ScreenAdapter.setFont(30),
+                                            style: TextStyle(
+                                                color: Color(0xFF333333),
+                                                fontSize: ScreenAdapter.setFont(
+                                                    30),
                                             )
                                         )
                                     )
@@ -146,27 +154,45 @@ class _CourseDetailPageState extends State<CourseDetailPage> {
         );
     }
 
-/*
-
-
-    _buildCategoryItem(index) {
-        return GestureDetector(
-            onTap: () {
-                _btnCaurse();
-            },
-            child: Container(
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                        color: Color(0xFFE6E6E6), width: 1)
-                ),
-                child: Text(_categoryData[index],
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Color(0xFF666666),
-                        fontSize: ScreenAdapter.setFont(30)),
-                ),
+    _buildVip() {
+        double size20 = ScreenAdapter.setWidth(20);
+        return SliverToBoxAdapter(
+            child: GestureDetector(
+                onTap: () {
+//                _btnCaurse();
+                },
+                child: Container(
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.only(top: size20, bottom: size20),
+                    padding: EdgeInsets.only(
+                        top: size20,
+                        bottom: size20,
+                        left: ScreenAdapter.setWidth(50),
+                        right: ScreenAdapter.setWidth(50)),
+                    height: ScreenAdapter.setWidth(130),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                    ),
+                    child:
+                    Container(
+                        constraints: BoxConstraints.expand(),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(
+                                ScreenAdapter.setWidth(15)),
+                            border: Border.all(
+                                color: Color(0xFF666666), width: 1
+                            )
+                        ),
+                        child: Text("专享VIP 0.62/天，解锁全部课程内容",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Color(0xFF333333),
+                                fontSize: ScreenAdapter.setFont(30)
+                            ),
+                        )
+                    ),
+                )
             )
         );
     }
@@ -175,9 +201,44 @@ class _CourseDetailPageState extends State<CourseDetailPage> {
         return SliverList(
             delegate: SliverChildBuilderDelegate((BuildContext context,
                 int index) {
-                return CouseItem("", _itemListener);
-            }, childCount: 5),
+                return Container(
+                    padding: EdgeInsets.all(ScreenAdapter.setWidth(20)),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border(
+                            bottom: BorderSide(color: Color(0xfff5f5f5))),
+                    ),
+                    child: Row(
+                        children: <Widget>[
+                            Expanded(
+                                flex: 1,
+                                child: Text("课程标题 " + index.toString(),
+                                    style: TextStyle(
+                                        color: Color(0xFF000000),
+                                        fontSize: ScreenAdapter.setFont(36)
+                                    )
+                                ),
+                            ),
+                            Padding(
+                                padding: EdgeInsets.only(
+                                    right: ScreenAdapter.setWidth(20)),
+                                child: Text("时长 20:55",
+                                    style: TextStyle(
+                                        color: Color(0xFF333333),
+                                        fontSize: ScreenAdapter.setFont(30)
+                                    )
+                                )
+                            ),
+                            Image(
+                                image: AssetImage(
+                                    "images/video_play.png"),
+                                width: 30,
+                                fit: BoxFit.fitWidth
+                            ),
+                        ],
+                    ),
+                );
+            }, childCount: 8),
         );
     }
-    */
 }

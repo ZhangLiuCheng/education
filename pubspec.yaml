@@ -28,6 +28,7 @@ flutter:
   uses-material-design: true
 
   assets:
+    - images/logo.png
     - images/loading_empty.png
     - images/loading_error.png
     - images/default_goods.png
@@ -46,6 +47,7 @@ flutter:
     - images/launch_image.png
     - images/icon_collect_off.png
     - images/icon_collect_on.png
+    - images/video_play.png
 
   # fonts:
   #   - family: Schyler
