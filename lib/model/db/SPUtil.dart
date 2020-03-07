@@ -1,5 +1,5 @@
 
-import 'package:education/model/bean/MyUser.dart';
+import 'package:education/model/bean/UserInfo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
@@ -38,7 +38,7 @@ class SPUtil {
 
 
     static getToken() async {
-        MyUser userInfo = await fetchUserInfo();
+        UserInfo userInfo = await fetchUserInfo();
         print("userInfo ---------->  $userInfo");
         if (userInfo != null) {
             return userInfo.token;
@@ -51,13 +51,13 @@ class SPUtil {
             SharedPreferences preferences = await SharedPreferences.getInstance();
             Map userString =  JsonDecoder().convert(preferences.getString("userInfo"));
             //print('sssssss-${userString['token']}');
-            return MyUser.fromJson(userString);
+            return UserInfo.fromJson(userString);
         } catch (ex) {
             return null;
         }
     }
 
-    static saveUserInfo(MyUser userInfo) async {
+    static saveUserInfo(UserInfo userInfo) async {
         try {
             SharedPreferences preferences = await SharedPreferences.getInstance();
             preferences.setString("userInfo", JsonEncoder().convert(userInfo.toJson()));

@@ -1,6 +1,7 @@
 import 'package:education/view/MainPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'model/AppStore.dart';
 import 'model/db/SPUtil.dart';
 import 'dart:io';
 
@@ -8,6 +9,10 @@ bool isFirst = false;
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+
+  print("1111");
+
+  AppStore().init();
 
   if (Platform.isAndroid) {
     SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(statusBarColor: Colors.transparent, statusBarBrightness: Brightness.dark);

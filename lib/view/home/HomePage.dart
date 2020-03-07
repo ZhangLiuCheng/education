@@ -1,5 +1,7 @@
+import 'package:education/model/AppStore.dart';
+import 'package:education/model/bean/Category.dart';
+import 'package:education/model/store/CategoryStore.dart';
 import 'package:education/util/ScreenAdapter.dart';
-import 'package:education/util/SliverHeaderDelegate.dart';
 import 'package:education/view/course/CourseAllPage.dart';
 import 'package:education/view/course/CourseDetailPage.dart';
 import 'package:education/view/course/CouseItem.dart';
@@ -20,10 +22,13 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
 
+    final CategoryStore _categoryStore = AppStore().categoryStore;
     final ScrollController _scrollController = new ScrollController();
     LoadingStatus _loadingStatus = LoadingStatus.hide;
 
-    List<String> _categoryData = ["全部", "校内强化", "童话故事", "作文园地", "电子书", "有声绘本"];
+//    List<Category> _categoryData = ["全部", "校内强化", "童话故事", "作文园地", "电子书", "有声绘本"];
+
+    List<Category> _categoryData;
 
     _itemListener(dynamic item) {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -60,10 +65,24 @@ class HomePageState extends State<HomePage>
         return 0;
     }
 
+    void initData() {
+        List<Category> category = _categoryStore.value;
+        if (null != category) {
+            this._categoryData = category;
+            _loadingStatus = LoadingStatus.hide;
+        } else if (_categoryStore.error != null) {
+            _loadingStatus = LoadingStatus.error;
+        } else {
+            _loadingStatus = LoadingStatus.loading;
+        }
+        setState(() {});
+    }
+
 
     @override
     void initState() {
         super.initState();
+        _categoryStore.addListener(initData);
 //        print("HomePage ===========>>  initState");
     }
 
@@ -71,6 +90,7 @@ class HomePageState extends State<HomePage>
     void dispose() {
         super.dispose();
         _scrollController.dispose();
+        _categoryStore.removeListener(initData);
 //        print("HomePage ===========>>  dispose");
     }
 
@@ -94,9 +114,9 @@ class HomePageState extends State<HomePage>
     }
 
     _buildContent() {
-//    if (null == this._categoryData) {
-//        return Container(width: 0, height: 0);
-//    }
+        if (null == this._categoryData) {
+            return Container(width: 0, height: 0);
+        }
         return CustomScrollView(
             controller: _scrollController,
             slivers: <Widget>[
@@ -198,7 +218,7 @@ class HomePageState extends State<HomePage>
                     border: Border.all(
                         color: Color(0xFFE6E6E6), width: 1)
                 ),
-                child: Text(_categoryData[index],
+                child: Text(_categoryData[index].name,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Color(0xFF666666),
