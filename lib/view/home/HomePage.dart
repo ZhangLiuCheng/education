@@ -1,5 +1,7 @@
 import 'package:education/model/AppStore.dart';
 import 'package:education/model/bean/Category.dart';
+import 'package:education/model/bean/VideoItem.dart';
+import 'package:education/model/http/Api.dart';
 import 'package:education/model/store/CategoryStore.dart';
 import 'package:education/util/ScreenAdapter.dart';
 import 'package:education/view/course/CourseAllPage.dart';
@@ -24,11 +26,13 @@ class HomePageState extends State<HomePage>
 
     final CategoryStore _categoryStore = AppStore().categoryStore;
     final ScrollController _scrollController = new ScrollController();
-    LoadingStatus _loadingStatus = LoadingStatus.hide;
 
-//    List<Category> _categoryData = ["全部", "校内强化", "童话故事", "作文园地", "电子书", "有声绘本"];
+    LoadingStatus _loadingStatus = LoadingStatus.loading;
 
     List<Category> _categoryData;
+    List<VideoItem> _videoList;
+
+    Category _category;
 
     _itemListener(dynamic item) {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -36,10 +40,11 @@ class HomePageState extends State<HomePage>
         }));
     }
 
-    _btnCaurse() {
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return CourseAllPage();
-        }));
+    _btnCaurse(Category cg) {
+//        Navigator.push(context, MaterialPageRoute(builder: (context) {
+//            return CourseAllPage();
+//        }));
+        _requestVideoList(cg);
     }
 
     Future _refresh() async {
@@ -65,10 +70,16 @@ class HomePageState extends State<HomePage>
         return 0;
     }
 
-    void initData() {
+    void _requestVideoList(Category cg) async {
+        this._videoList = await Api.videoList(cg.id);
+        setState(() {});
+    }
+
+    void initCategoryData() {
         List<Category> category = _categoryStore.value;
         if (null != category) {
             this._categoryData = category;
+            _requestVideoList(category[0]);
             _loadingStatus = LoadingStatus.hide;
         } else if (_categoryStore.error != null) {
             _loadingStatus = LoadingStatus.error;
@@ -82,7 +93,7 @@ class HomePageState extends State<HomePage>
     @override
     void initState() {
         super.initState();
-        _categoryStore.addListener(initData);
+        _categoryStore.addListener(initCategoryData);
 //        print("HomePage ===========>>  initState");
     }
 
@@ -90,7 +101,7 @@ class HomePageState extends State<HomePage>
     void dispose() {
         super.dispose();
         _scrollController.dispose();
-        _categoryStore.removeListener(initData);
+        _categoryStore.removeListener(initCategoryData);
 //        print("HomePage ===========>>  dispose");
     }
 
@@ -102,14 +113,15 @@ class HomePageState extends State<HomePage>
         super.build(context);
         print("HomePage ===========>>  build");
         return RefreshIndicator(
-            child: LoadingPage(
-                status: _loadingStatus,
-                onRetry: () {
-
-                },
-                child: _buildContent()
-            ),
-            onRefresh: _refresh
+            onRefresh: _refresh,
+            child: _buildContent()
+//            child: LoadingPage(
+//                status: _loadingStatus,
+//                onRetry: () {
+//
+//                },
+//                child: _buildContent()
+//            ),
         );
     }
 
@@ -119,6 +131,7 @@ class HomePageState extends State<HomePage>
         }
         return CustomScrollView(
             controller: _scrollController,
+            physics: AlwaysScrollableScrollPhysics(),
             slivers: <Widget>[
                 SliverToBoxAdapter(
                     child: HomeBanner(),
@@ -209,7 +222,7 @@ class HomePageState extends State<HomePage>
     _buildCategoryItem(index) {
         return GestureDetector(
             onTap: () {
-                _btnCaurse();
+                _btnCaurse(_categoryData[index]);
             },
             child: Container(
                 alignment: Alignment.center,
@@ -230,19 +243,21 @@ class HomePageState extends State<HomePage>
     }
 
     _buildList() {
+        int count = _videoList == null ? 0 : _videoList.length;
         return SliverList(
             delegate: SliverChildBuilderDelegate((BuildContext context,
                 int index) {
-                return CouseItem("", _itemListener);
-            }, childCount: 5),
+                return CouseItem(_videoList[index], _itemListener);
+            }, childCount: count),
         );
     }
 
     _buildLoadmore() {
-//        int defaultStatus = (page == 1 && _goodsData.length < 10) ? 1 : 0;
+//        int defaultStatus = (page == 1 && _videoList.length < 10) ? 1 : 0;
+        int defaultStatus = (null != _videoList &&  _videoList.length < 10) ? 1 : 0;
         return SliverToBoxAdapter(
             child: LoadmoreWidget(_scrollController,
-                status: 1, loadmoreCallback: _loadmore)
+                status: defaultStatus, loadmoreCallback: _loadmore)
         );
     }
 }

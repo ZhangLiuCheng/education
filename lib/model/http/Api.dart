@@ -1,4 +1,5 @@
 import 'package:education/model/bean/Category.dart';
+import 'package:education/model/bean/VideoItem.dart';
 import 'DioUtil.dart';
 
 class Api {
@@ -7,8 +8,15 @@ class Api {
     /// 视频分类
     static Future categoryList() {
         return DioUtil.get("/api/serial/categoryList", null, (data) {
-//            return Category.fromJson(data);
             return (data as List)?.map((l) => Category.fromJson(l))?.toList();
+        });
+    }
+
+    /// 视频列表
+    static Future videoList(num cId) {
+        return DioUtil.get("/api/serial/list", {"category": cId}, (data) {
+            List result = data["resultSet"];
+            return result?.map((l) => VideoItem.fromJson(l))?.toList();
         });
     }
 

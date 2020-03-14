@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:education/model/bean/VideoItem.dart';
 import 'package:education/util/ScreenAdapter.dart';
 import 'package:education/util/WidgetUtil.dart';
 import 'package:flutter/material.dart';
 
 class CouseItem extends StatelessWidget {
-    dynamic item;
+
+    VideoItem item;
 
     Function itemListener;
 
@@ -18,7 +20,7 @@ class CouseItem extends StatelessWidget {
         return this._buildListItem(this.item);
     }
 
-    _buildListItem(item) {
+    _buildListItem(VideoItem item) {
         double size20 = ScreenAdapter.setWidth(20);
         double size30 = ScreenAdapter.setWidth(30);
 
@@ -37,7 +39,7 @@ class CouseItem extends StatelessWidget {
                 child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                        _buildListItemImg("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1583407877438&di=bafb8c48712e565ea6730345ae21b31b&imgtype=0&src=http%3A%2F%2Fh.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2F0dd7912397dda144dac4acc9b2b7d0a20df486f8.jpg"),
+                        _buildListItemImg(item.icon),
                         Expanded(flex: 1, child: _buildListItemDesc(item))
                     ],
                 ),
@@ -53,13 +55,13 @@ class CouseItem extends StatelessWidget {
         );
     }
 
-    _buildListItemDesc(dynamic item) {
+    _buildListItemDesc(VideoItem item) {
         return Container(
             margin: EdgeInsets.only(left: 10),
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                    Text("古诗三百首",
+                    Text(item.name,
                         textAlign: TextAlign.left,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
@@ -71,7 +73,7 @@ class CouseItem extends StatelessWidget {
                         padding: EdgeInsets.only(
                             top: ScreenAdapter.setWidth(10),
                             bottom: ScreenAdapter.setWidth(10)),
-                        child: Text("我是介绍我是介绍我是介绍我是介绍我是介绍我是介绍我是介绍我是介绍我是介绍",
+                        child: Text(item.desc,
                             style: TextStyle(
                                 color: Color(0xFF464646),
                                 fontSize: ScreenAdapter.setFont(26)),
@@ -79,7 +81,7 @@ class CouseItem extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             maxLines: 2)
                     ),
-                    Text("1.2万次播放",
+                    Text(item.payCount.toString() + "万次播放",
                         textAlign: TextAlign.left,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
