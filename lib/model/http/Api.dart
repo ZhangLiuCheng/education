@@ -28,6 +28,14 @@ class Api {
         });
     }
 
+    /// 视频列表Top
+    static Future videoTopList(num pageSize) {
+        return DioUtil.get("/api/serial/top", {"pageSize": pageSize}, (data) {
+            List result = data;
+            return result?.map((l) => VideoItem.fromJson(l))?.toList();
+        });
+    }
+
 /// 更新用户信息
 /// "file": new UploadFileInfo(File("./example/upload.txt"), "upload.txt")
 ///

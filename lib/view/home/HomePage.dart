@@ -28,10 +28,10 @@ class HomePageState extends State<HomePage>
 
     LoadingStatus _loadingStatus = LoadingStatus.loading;
 
-    List<Category> _categoryData;
-    List<VideoItem> _videoList;
+//    List<Category> _categoryData;
+//    Category _category;
 
-    Category _category;
+    List<VideoItem> _videoList;
 
     _itemListener(VideoItem item) {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -39,9 +39,9 @@ class HomePageState extends State<HomePage>
         }));
     }
 
-    _btnCaurse(Category cg) {
-        _requestVideoList(cg);
-    }
+//    _btnCaurse(Category cg) {
+//        _requestVideoList(cg);
+//    }
 
     Future _refresh() async {
 //        return await AppStore().configStore.init();
@@ -66,38 +66,43 @@ class HomePageState extends State<HomePage>
         return 0;
     }
 
-    void _requestVideoList(Category cg) async {
-        this._videoList = await Api.videoList(cg.id);
+//    void initCategoryData() {
+//        List<Category> category = _categoryStore.value;
+//        if (null != category) {
+//            this._categoryData = category;
+//            _requestVideoList(category[0]);
+//            _loadingStatus = LoadingStatus.hide;
+//        } else if (_categoryStore.error != null) {
+//            _loadingStatus = LoadingStatus.error;
+//        } else {
+//            _loadingStatus = LoadingStatus.loading;
+//        }
+//        setState(() {});
+//    }
+
+//    void _requestVideoList(Category cg) async {
+//        this._videoList = await Api.videoList(cg.id);
+//        setState(() {});
+//    }
+
+    void _requestVideoTop() async {
+        this._videoList = await Api.videoTopList(20);
         setState(() {});
     }
-
-    void initCategoryData() {
-        List<Category> category = _categoryStore.value;
-        if (null != category) {
-            this._categoryData = category;
-            _requestVideoList(category[0]);
-            _loadingStatus = LoadingStatus.hide;
-        } else if (_categoryStore.error != null) {
-            _loadingStatus = LoadingStatus.error;
-        } else {
-            _loadingStatus = LoadingStatus.loading;
-        }
-        setState(() {});
-    }
-
 
     @override
     void initState() {
         super.initState();
-        _categoryStore.addListener(initCategoryData);
+//        _categoryStore.addListener(initCategoryData);
 //        print("HomePage ===========>>  initState");
+        _requestVideoTop();
     }
 
     @override
     void dispose() {
         super.dispose();
         _scrollController.dispose();
-        _categoryStore.removeListener(initCategoryData);
+//        _categoryStore.removeListener(initCategoryData);
 //        print("HomePage ===========>>  dispose");
     }
 
@@ -122,9 +127,9 @@ class HomePageState extends State<HomePage>
     }
 
     _buildContent() {
-        if (null == this._categoryData) {
-            return Container(width: 0, height: 0);
-        }
+//        if (null == this._categoryData) {
+//            return Container(width: 0, height: 0);
+//        }
         return CustomScrollView(
             controller: _scrollController,
             physics: AlwaysScrollableScrollPhysics(),
@@ -190,53 +195,53 @@ class HomePageState extends State<HomePage>
     }
 
     // 分类
-    _buildCategroy() {
-        return SliverToBoxAdapter(
-            child: Container(
-                color: Colors.white,
-                margin: EdgeInsets.only(top: ScreenAdapter().setHeight(20)),
-                child: GridView.builder(
-                    padding: EdgeInsets.only(
-                        left: 10, right: 10, top: 10, bottom: 10),
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: _categoryData.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        mainAxisSpacing: 10.0,
-                        crossAxisSpacing: 10.0,
-                        childAspectRatio: 2.6,
-                    ),
-                    itemBuilder: (context, index) {
-                        return _buildCategoryItem(index);
-                    }
-                )
-            ),
-        );
-    }
+//    _buildCategroy() {
+//        return SliverToBoxAdapter(
+//            child: Container(
+//                color: Colors.white,
+//                margin: EdgeInsets.only(top: ScreenAdapter().setHeight(20)),
+//                child: GridView.builder(
+//                    padding: EdgeInsets.only(
+//                        left: 10, right: 10, top: 10, bottom: 10),
+//                    shrinkWrap: true,
+//                    physics: NeverScrollableScrollPhysics(),
+//                    itemCount: _categoryData.length,
+//                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+//                        crossAxisCount: 3,
+//                        mainAxisSpacing: 10.0,
+//                        crossAxisSpacing: 10.0,
+//                        childAspectRatio: 2.6,
+//                    ),
+//                    itemBuilder: (context, index) {
+//                        return _buildCategoryItem(index);
+//                    }
+//                )
+//            ),
+//        );
+//    }
 
-    _buildCategoryItem(index) {
-        return GestureDetector(
-            onTap: () {
-                _btnCaurse(_categoryData[index]);
-            },
-            child: Container(
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                        color: Color(0xFFE6E6E6), width: 1)
-                ),
-                child: Text(_categoryData[index].name,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Color(0xFF666666),
-                        fontSize: ScreenAdapter().setFont(30)
-                    ),
-                ),
-            )
-        );
-    }
+//    _buildCategoryItem(index) {
+//        return GestureDetector(
+//            onTap: () {
+//                _btnCaurse(_categoryData[index]);
+//            },
+//            child: Container(
+//                alignment: Alignment.center,
+//                decoration: BoxDecoration(
+//                    borderRadius: BorderRadius.circular(10),
+//                    border: Border.all(
+//                        color: Color(0xFFE6E6E6), width: 1)
+//                ),
+//                child: Text(_categoryData[index].name,
+//                    textAlign: TextAlign.center,
+//                    style: TextStyle(
+//                        color: Color(0xFF666666),
+//                        fontSize: ScreenAdapter().setFont(30)
+//                    ),
+//                ),
+//            )
+//        );
+//    }
 
     _buildList() {
         int count = _videoList == null ? 0 : _videoList.length;

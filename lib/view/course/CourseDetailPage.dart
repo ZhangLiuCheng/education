@@ -110,11 +110,9 @@ class _CourseDetailPageState extends State<CourseDetailPage>
     @override
     Widget build(BuildContext context) {
         print("CourseDetailPage ===========>>  build");
-        if (null == this._videoDetail) {
-            return Container(width: 0, height: 0);
-        }
         return Scaffold(
-            appBar: WidgetUtil.buildAppBar(_videoDetail.name),
+            backgroundColor: Color(0xfff5f5f5),
+            appBar: WidgetUtil.buildAppBar(_videoDetail == null ? "" : _videoDetail.name),
             body: LoadingPage(
                 status: _loadingStatus,
                 onRetry: _onRetry,
@@ -125,6 +123,9 @@ class _CourseDetailPageState extends State<CourseDetailPage>
     }
 
     _buildContent() {
+        if (null == this._videoDetail) {
+            return Container(width: 0, height: 0);
+        }
 //        return CustomScrollView(
 //            slivers: <Widget>[
 //                _buildVideo(),
@@ -163,6 +164,9 @@ class _CourseDetailPageState extends State<CourseDetailPage>
 //                controller: chewieController,
 //            )
 //        );
+        if (null == chewieController) {
+            return Container(width: 0, height: 0);
+        }
         return Chewie(
             controller: chewieController,
         );

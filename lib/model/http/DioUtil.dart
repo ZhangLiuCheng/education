@@ -24,10 +24,10 @@ class DioUtil {
 
         dio.interceptors
             .add(InterceptorsWrapper(onRequest: (RequestOptions options) {
-            print("onRequest: ${options.uri}");
+//            print("onRequest: ${options.uri}");
             return options;
         }, onResponse: (Response response) {
-            print("onResponse: $response");
+//            print("onResponse: $response");
             return response;
         }, onError: (DioError e) {
             print("onError: $e");
