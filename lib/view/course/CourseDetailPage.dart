@@ -77,16 +77,20 @@ class _CourseDetailPageState extends State<CourseDetailPage>
         );
 
         chewieController.addListener(() {
-            if (null != chewieController) {
+            if (chewieController.isFullScreen) {
+                Future.delayed(Duration(milliseconds: 500), () {
+                    OrientationPlugin.forceOrientation(
+                        DeviceOrientation.landscapeRight);
+                });
+            } else {
                 OrientationPlugin.forceOrientation(
-                    chewieController.isFullScreen ?
-                    DeviceOrientation.landscapeRight : DeviceOrientation.portraitUp);
+                    DeviceOrientation.portraitUp);
             }
         });
     }
 
     @override
-    bool get wantKeepAlive => false;
+    bool get wantKeepAlive => true;
 
     @override
     void initState() {
@@ -121,35 +125,46 @@ class _CourseDetailPageState extends State<CourseDetailPage>
     }
 
     _buildContent() {
-        return CustomScrollView(
-            slivers: <Widget>[
-//                _buildImage(),
+//        return CustomScrollView(
+//            slivers: <Widget>[
+//                _buildVideo(),
+//                _buildInfo(),
+//                _buildVip(),
+//                _buildList()
+//            ],
+//        );
+        return Column(
+            children: <Widget>[
                 _buildVideo(),
-                _buildInfo(),
-                _buildVip(),
-                _buildList()
+                Expanded(
+                    flex: 1,
+                    child: CustomScrollView(
+                    slivers: <Widget>[
+                        _buildInfo(),
+                        _buildVip(),
+                        _buildList()
+                    ],
+                )
+                )
             ],
         );
     }
 
-    _buildImage() {
-        return SliverToBoxAdapter(
-            child: WidgetUtil.buildNetworkImage(
-                this._videoDetail.icon,
-                MediaQuery
-                    .of(context)
-                    .size
-                    .width,
-                ScreenAdapter().setWidth(400)
-            ),
-        );
-    }
-
     _buildVideo() {
-        return SliverToBoxAdapter(
-            child: Chewie(
-                controller: chewieController,
-            )
+//        return SliverAppBar(
+//            pinned: false,
+//            expandedHeight: 350.0,
+//            flexibleSpace:  Chewie(
+//                controller: chewieController,
+//            )
+//        );
+//        return SliverToBoxAdapter(
+//            child: Chewie(
+//                controller: chewieController,
+//            )
+//        );
+        return Chewie(
+            controller: chewieController,
         );
     }
 
@@ -172,21 +187,25 @@ class _CourseDetailPageState extends State<CourseDetailPage>
                                         maxLines: 1,
                                         style: TextStyle(
                                             color: Color(0xFF333333),
-                                            fontSize: ScreenAdapter().setFont(34),
+                                            fontSize: ScreenAdapter().setFont(
+                                                34),
                                             fontWeight: FontWeight.bold)
                                     ),
                                     Container(
                                         padding: EdgeInsets.only(
                                             top: ScreenAdapter().setWidth(10),
-                                            bottom: ScreenAdapter().setWidth(10)),
+                                            bottom: ScreenAdapter().setWidth(
+                                                10)),
                                         child: Text(
-                                            _videoDetail?.payCount.toString() + "万次播放",
+                                            _videoDetail?.payCount.toString() +
+                                                "万次播放",
                                             textAlign: TextAlign.left,
                                             overflow: TextOverflow.ellipsis,
                                             maxLines: 1,
                                             style: TextStyle(
                                                 color: Color(0xFF333333),
-                                                fontSize: ScreenAdapter().setFont(30),
+                                                fontSize: ScreenAdapter()
+                                                    .setFont(30),
                                             )
                                         )
                                     )
@@ -266,7 +285,8 @@ class _CourseDetailPageState extends State<CourseDetailPage>
                                     child: Text(mediaList[index].name,
                                         style: TextStyle(
                                             color: Color(0xFF000000),
-                                            fontSize: ScreenAdapter().setFont(36)
+                                            fontSize: ScreenAdapter().setFont(
+                                                36)
                                         )
                                     ),
                                 ),
@@ -277,7 +297,8 @@ class _CourseDetailPageState extends State<CourseDetailPage>
                                         "时长 " + mediaList[index].duration,
                                         style: TextStyle(
                                             color: Color(0xFF333333),
-                                            fontSize: ScreenAdapter().setFont(30)
+                                            fontSize: ScreenAdapter().setFont(
+                                                30)
                                         )
                                     )
                                 ),
