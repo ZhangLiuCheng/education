@@ -21,8 +21,8 @@ class CouseItem extends StatelessWidget {
     }
 
     _buildListItem(VideoItem item) {
-        double size20 = ScreenAdapter.setWidth(20);
-        double size30 = ScreenAdapter.setWidth(30);
+        double size20 = ScreenAdapter().setWidth(20);
+        double size30 = ScreenAdapter().setWidth(30);
 
         return InkWell(
             onTap: () {
@@ -47,8 +47,8 @@ class CouseItem extends StatelessWidget {
     }
 
     _buildListItemImg(goodsImg) {
-        double _sizeWidth = ScreenAdapter.setWidth(260);
-        double _sizeHeight = ScreenAdapter.setWidth(200);
+        double _sizeWidth = ScreenAdapter().setWidth(260);
+        double _sizeHeight = ScreenAdapter().setWidth(200);
         return ClipRRect(
             borderRadius: BorderRadius.circular(6),
             child: WidgetUtil.buildNetworkImage(goodsImg, _sizeWidth, _sizeHeight),
@@ -66,17 +66,17 @@ class CouseItem extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                         style: TextStyle(color: Color(0xFF333333),
-                            fontSize: ScreenAdapter.setFont(34),
+                            fontSize: ScreenAdapter().setFont(34),
                             fontWeight: FontWeight.bold)
                     ),
                     Container(
                         padding: EdgeInsets.only(
-                            top: ScreenAdapter.setWidth(10),
-                            bottom: ScreenAdapter.setWidth(10)),
+                            top: ScreenAdapter().setWidth(10),
+                            bottom: ScreenAdapter().setWidth(10)),
                         child: Text(item.desc,
                             style: TextStyle(
                                 color: Color(0xFF464646),
-                                fontSize: ScreenAdapter.setFont(26)),
+                                fontSize: ScreenAdapter().setFont(26)),
                             textAlign: TextAlign.left,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 2)
@@ -86,7 +86,7 @@ class CouseItem extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                         style: TextStyle(color: Color(0xFF333333),
-                            fontSize: ScreenAdapter.setFont(30),
+                            fontSize: ScreenAdapter().setFont(30),
                         )
                     ),
                 ],

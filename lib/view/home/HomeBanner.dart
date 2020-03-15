@@ -22,7 +22,7 @@ class _HomeBannerState extends State<HomeBanner> {
     }
 
     _buildViewPager() {
-        double height = ScreenAdapter.homeBannerHeight();
+        double height = ScreenAdapter().homeBannerHeight();
         List<String> data = [
             "https://tbk-assets.oss-cn-shanghai.aliyuncs.com/banner/%E7%A7%8D%E8%8D%89%E7%94%9F%E6%B4%BB%E6%97%A5.png",
             "https://tbk-assets.oss-cn-shanghai.aliyuncs.com/banner/%E5%85%A8%E7%90%83%E7%B2%BE%E9%80%89.png"

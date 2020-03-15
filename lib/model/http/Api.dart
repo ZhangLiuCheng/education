@@ -1,4 +1,5 @@
 import 'package:education/model/bean/Category.dart';
+import 'package:education/model/bean/VideoDetail.dart';
 import 'package:education/model/bean/VideoItem.dart';
 import 'DioUtil.dart';
 
@@ -20,6 +21,12 @@ class Api {
         });
     }
 
+    /// 视频详情
+    static Future videoDetail(num id) {
+        return DioUtil.get("/api/serial/detail/" + id.toString(), null, (data) {
+            return VideoDetail.fromJson(data);
+        });
+    }
 
 /// 更新用户信息
 /// "file": new UploadFileInfo(File("./example/upload.txt"), "upload.txt")

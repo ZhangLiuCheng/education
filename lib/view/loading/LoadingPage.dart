@@ -101,7 +101,7 @@ class LoadingPageState extends State<LoadingPage> {
                         width: 200,
                         height: 200),
                         Text(widget.emptyTitle, style: TextStyle(color: Color(0xff9D999C),
-                            fontSize: ScreenAdapter.setFont(32)))
+                            fontSize: ScreenAdapter().setFont(32)))
                     ],
                 )
             ),
@@ -122,10 +122,10 @@ class LoadingPageState extends State<LoadingPage> {
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
                             Image.asset("images/loading_error.png",
-                                width: ScreenAdapter.setWidth(300),
-                                height: ScreenAdapter.setWidth(300)),
+                                width: ScreenAdapter().setWidth(300),
+                                height: ScreenAdapter().setWidth(300)),
                             Text(widget.errorTitle, style: TextStyle(color: Color(0xff9D999C),
-                                fontSize: ScreenAdapter.setFont(32))),
+                                fontSize: ScreenAdapter().setFont(32))),
                             Container(
                                 margin: EdgeInsets.only(top: 30),
                                 padding: EdgeInsets.only(left: 30, right: 30, top: 5, bottom: 5),
@@ -133,7 +133,7 @@ class LoadingPageState extends State<LoadingPage> {
                                     border: Border.all(color: Color(0xff9D999C), width: 0.8),
                                     borderRadius: BorderRadius.all(Radius.circular(5))
                                 ),
-                                child: Text("重新加载", style: TextStyle(fontSize: ScreenAdapter.setFont
+                                child: Text("重新加载", style: TextStyle(fontSize: ScreenAdapter().setFont
                                     (28), color: Color(0xff9D999C))),
                             )
                         ],

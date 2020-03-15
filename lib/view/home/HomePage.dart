@@ -4,7 +4,6 @@ import 'package:education/model/bean/VideoItem.dart';
 import 'package:education/model/http/Api.dart';
 import 'package:education/model/store/CategoryStore.dart';
 import 'package:education/util/ScreenAdapter.dart';
-import 'package:education/view/course/CourseAllPage.dart';
 import 'package:education/view/course/CourseDetailPage.dart';
 import 'package:education/view/course/CouseItem.dart';
 import 'package:education/view/loading/LoadingPage.dart';
@@ -34,16 +33,13 @@ class HomePageState extends State<HomePage>
 
     Category _category;
 
-    _itemListener(dynamic item) {
+    _itemListener(VideoItem item) {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return CourseDetailPage();
+            return CourseDetailPage(item.id);
         }));
     }
 
     _btnCaurse(Category cg) {
-//        Navigator.push(context, MaterialPageRoute(builder: (context) {
-//            return CourseAllPage();
-//        }));
         _requestVideoList(cg);
     }
 
@@ -140,7 +136,7 @@ class HomePageState extends State<HomePage>
                     child: _buildCommon(),
                 ),
 //                SliverToBoxAdapter(child: _buildHead('分类')),
-                _buildCategroy(),
+//                _buildCategroy(),
                 SliverToBoxAdapter(child: _buildHead('推荐')),
                 _buildList(),
                 _buildLoadmore()
@@ -153,23 +149,23 @@ class HomePageState extends State<HomePage>
             decoration: new BoxDecoration(
                 color: Color(0xFFFFFFFF),
             ),
-            margin: EdgeInsets.only(top: ScreenAdapter.setHeight(20)),
+            margin: EdgeInsets.only(top: ScreenAdapter().setHeight(20)),
             padding: EdgeInsets.only(left: 10, right: 10),
-            height: ScreenAdapter.setHeight(100),
+            height: ScreenAdapter().setHeight(100),
             child: Row(
                 children: <Widget>[
                     Text("头条",
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Color(0xFF009900),
-                            fontSize: ScreenAdapter.setFont(36))
+                            fontSize: ScreenAdapter().setFont(36))
                     ),
                     Padding(
                         padding: EdgeInsets.only(left: 20),
                         child: Text("常见问题解答",
                             style: TextStyle(
                                 color: Color(0xFF000000),
-                                fontSize: ScreenAdapter.setFont(30))
+                                fontSize: ScreenAdapter().setFont(30))
                         )
                     )
                 ],
@@ -178,7 +174,7 @@ class HomePageState extends State<HomePage>
     }
 
     _buildHead(title) {
-        double size20 = ScreenAdapter.setWidth(20);
+        double size20 = ScreenAdapter().setWidth(20);
         return Container(
             color: Colors.white,
             padding: EdgeInsets.only(left: size20, top: size20, bottom: size20),
@@ -186,7 +182,7 @@ class HomePageState extends State<HomePage>
             child: Text(
                 title,
                 style: TextStyle(
-                    fontSize: ScreenAdapter.setFont(36),
+                    fontSize: ScreenAdapter().setFont(36),
                     color: Color(0xff333333),
                     fontWeight: FontWeight.normal),
             ),
@@ -198,7 +194,7 @@ class HomePageState extends State<HomePage>
         return SliverToBoxAdapter(
             child: Container(
                 color: Colors.white,
-                margin: EdgeInsets.only(top: ScreenAdapter.setHeight(20)),
+                margin: EdgeInsets.only(top: ScreenAdapter().setHeight(20)),
                 child: GridView.builder(
                     padding: EdgeInsets.only(
                         left: 10, right: 10, top: 10, bottom: 10),
@@ -235,7 +231,7 @@ class HomePageState extends State<HomePage>
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Color(0xFF666666),
-                        fontSize: ScreenAdapter.setFont(30)
+                        fontSize: ScreenAdapter().setFont(30)
                     ),
                 ),
             )

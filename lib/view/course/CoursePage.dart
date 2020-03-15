@@ -1,3 +1,8 @@
+import 'package:education/model/AppStore.dart';
+import 'package:education/model/bean/Category.dart';
+import 'package:education/model/bean/VideoItem.dart';
+import 'package:education/model/http/Api.dart';
+import 'package:education/model/store/CategoryStore.dart';
 import 'package:education/util/ScreenAdapter.dart';
 import 'package:education/util/WidgetUtil.dart';
 import 'package:education/view/loading/LoadingPage.dart';
@@ -7,20 +12,42 @@ import 'package:flutter/material.dart';
 import 'CourseDetailPage.dart';
 import 'CouseItem.dart';
 
-class CourseAllPage extends StatefulWidget {
+class CoursePage extends StatefulWidget {
 
     @override
     State<StatefulWidget> createState() {
-        return _CourseAllPageState();
+        return _CoursePageState();
     }
 }
 
-class _CourseAllPageState extends State<CourseAllPage> {
+class _CoursePageState extends State<CoursePage> with AutomaticKeepAliveClientMixin {
 
     final ScrollController _scrollController = new ScrollController();
     LoadingStatus _loadingStatus = LoadingStatus.hide;
 
-    List<String> _categoryData = ["全部", "校内强化", "童话故事", "作文园地", "电子书", "有声绘本"];
+    final CategoryStore _categoryStore = AppStore().categoryStore;
+
+    List<Category> _categoryData;
+    List<VideoItem> _videoList;
+
+    void _requestVideoList(Category cg) async {
+        this._videoList = await Api.videoList(cg.id);
+        setState(() {});
+    }
+
+    void initCategoryData() {
+        List<Category> category = _categoryStore.value;
+        if (null != category) {
+            this._categoryData = category;
+            _requestVideoList(category[0]);
+            _loadingStatus = LoadingStatus.hide;
+        } else if (_categoryStore.error != null) {
+            _loadingStatus = LoadingStatus.error;
+        } else {
+            _loadingStatus = LoadingStatus.loading;
+        }
+        setState(() {});
+    }
 
     _onRetry() {
         setState(() {
@@ -29,15 +56,13 @@ class _CourseAllPageState extends State<CourseAllPage> {
 //        _getItemDetail();
     }
 
-    _btnCaurse() {
-//        Navigator.push(context, MaterialPageRoute(builder: (context) {
-//            return CourseAllPage();
-//        }));
+    _btnCaurse(Category cg) {
+        _requestVideoList(cg);
     }
 
-    _itemListener(dynamic item) {
+    _itemListener(VideoItem item) {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return CourseDetailPage();
+            return CourseDetailPage(item.id);
         }));
     }
 
@@ -78,6 +103,24 @@ class _CourseAllPageState extends State<CourseAllPage> {
     }
 
     @override
+    bool get wantKeepAlive => true;
+
+    @override
+    void initState() {
+        super.initState();
+        _categoryStore.addListener(initCategoryData);
+//        print("HomePage ===========>>  initState");
+    }
+
+    @override
+    void dispose() {
+        super.dispose();
+        _scrollController.dispose();
+        _categoryStore.removeListener(initCategoryData);
+//        print("HomePage ===========>>  dispose");
+    }
+
+    @override
     Widget build(BuildContext context) {
         return Scaffold(
             backgroundColor: Colors.white,
@@ -108,7 +151,7 @@ class _CourseAllPageState extends State<CourseAllPage> {
         return SliverToBoxAdapter(
             child: Container(
                 color: Colors.white,
-                margin: EdgeInsets.only(top: ScreenAdapter.setHeight(20)),
+                margin: EdgeInsets.only(top: ScreenAdapter().setHeight(20)),
                 child: GridView.builder(
                     padding: EdgeInsets.only(
                         left: 10, right: 10, top: 10, bottom: 10),
@@ -132,7 +175,7 @@ class _CourseAllPageState extends State<CourseAllPage> {
     _buildCategoryItem(index) {
         return GestureDetector(
             onTap: () {
-                _btnCaurse();
+                _btnCaurse(_categoryData[index]);
             },
             child: Container(
                 alignment: Alignment.center,
@@ -141,22 +184,23 @@ class _CourseAllPageState extends State<CourseAllPage> {
                     border: Border.all(
                         color: Color(0xFFE6E6E6), width: 1)
                 ),
-                child: Text(_categoryData[index],
+                child: Text(_categoryData[index].name,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Color(0xFF666666),
-                        fontSize: ScreenAdapter.setFont(30)),
+                        fontSize: ScreenAdapter().setFont(30)),
                 ),
             )
         );
     }
 
     _buildList() {
+        int count = _videoList == null ? 0 : _videoList.length;
         return SliverList(
             delegate: SliverChildBuilderDelegate((BuildContext context,
                 int index) {
-                return CouseItem("", _itemListener);
-            }, childCount: 5),
+                return CouseItem(_videoList[index], _itemListener);
+            }, childCount: count),
         );
     }
 

@@ -60,7 +60,7 @@ class CollectWidgetState extends State<CollectWidget> {
                         fit: BoxFit.fitWidth),
                     Text("收藏",
                         style: TextStyle(
-                            fontSize: ScreenAdapter.setFont(26),
+                            fontSize: ScreenAdapter().setFont(26),
                             color: widget.isCollected
                                 ? Color(0xffff2c56)
                                 : Color(0xff333333)))

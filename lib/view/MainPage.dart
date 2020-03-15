@@ -1,6 +1,6 @@
 import 'package:education/util/CommonUtil.dart';
 import 'package:education/util/ScreenAdapter.dart';
-import 'package:education/view/course/CourseMainPage.dart';
+import 'package:education/view/course/CoursePage.dart';
 import 'package:education/view/home/HomePage.dart';
 import 'package:education/view/personal/PersonalPage.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +67,7 @@ class _MainPageState extends State<MainPage> {
 
     @override
     Widget build(BuildContext context) {
-        ScreenUtil.init(context, width: 750, height: 1334);
+        ScreenAdapter.init(context, width: 750, height: 1334);
 
         print("MainPage ---------->  build");
         return WillPopScope(
@@ -80,7 +80,7 @@ class _MainPageState extends State<MainPage> {
     }
 
     _buildBottomNavigationBar() {
-        double _size = ScreenAdapter.setWidth(52);
+        double _size = ScreenAdapter().setWidth(52);
         return BottomNavigationBar(
             items: <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
@@ -91,7 +91,7 @@ class _MainPageState extends State<MainPage> {
                         "images/tab_home_on.png", width: _size, height: _size)
                 ),
                 BottomNavigationBarItem(
-                    title: Text('会员'),
+                    title: Text('课程'),
                     icon: Image.asset(
                         "images/tab_category_off.png", width: _size,
                         height: _size),
@@ -99,14 +99,14 @@ class _MainPageState extends State<MainPage> {
                         "images/tab_category_on.png", width: _size,
                         height: _size)
                 ),
-                BottomNavigationBarItem(
-                    title: Text('我的课程'),
-                    icon: Image.asset(
-                        "images/tab_money_off.png", width: _size,
-                        height: _size),
-                    activeIcon: Image.asset(
-                        "images/tab_money_on.png", width: _size, height: _size)
-                ),
+//                BottomNavigationBarItem(
+//                    title: Text('会员'),
+//                    icon: Image.asset(
+//                        "images/tab_money_off.png", width: _size,
+//                        height: _size),
+//                    activeIcon: Image.asset(
+//                        "images/tab_money_on.png", width: _size, height: _size)
+//                ),
                 BottomNavigationBarItem(
                     title: Text('个人中心'),
                     icon: Image.asset(
@@ -117,8 +117,8 @@ class _MainPageState extends State<MainPage> {
             ],
             type: BottomNavigationBarType.fixed,
             currentIndex: _selectedIndex,
-            selectedFontSize: ScreenAdapter.setFont(22),
-            unselectedFontSize: ScreenAdapter.setFont(20),
+            selectedFontSize: ScreenAdapter().setFont(22),
+            unselectedFontSize: ScreenAdapter().setFont(20),
             fixedColor: Color(0xffff2c56),
             iconSize: _size,
             onTap: _onItemTapped
@@ -131,8 +131,8 @@ class _MainPageState extends State<MainPage> {
             physics: new NeverScrollableScrollPhysics(),
             children: <Widget>[
                 HomePage(),
-                MemberPage(),
                 CoursePage(),
+//                MemberPage(),
                 PersonalPage()
             ]
         );

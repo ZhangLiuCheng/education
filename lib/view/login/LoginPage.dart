@@ -86,15 +86,15 @@ class _LoginPageState extends State {
                     children: <Widget>[
                         Image.asset(
                             'images/logo.png',
-                            width: ScreenAdapter.setWidth(132),
-                            height: ScreenAdapter.setWidth(132),
+                            width: ScreenAdapter().setWidth(132),
+                            height: ScreenAdapter().setWidth(132),
                         ),
                         Padding(
                             padding: EdgeInsets.only(top: 12),
                             child: Text(
                                 '彩虹优选',
                                 style: TextStyle(
-                                    fontSize: ScreenAdapter.setFont(40)),
+                                    fontSize: ScreenAdapter().setFont(40)),
                             ),
                         ),
                         _buildInputText(),
@@ -112,14 +112,14 @@ class _LoginPageState extends State {
             child: TextField(
                 focusNode: _contentFocusNode,
                 maxLength: 11,
-                style: TextStyle(fontSize: ScreenAdapter.setFont(16)),
+                style: TextStyle(fontSize: ScreenAdapter().setFont(16)),
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                     contentPadding: EdgeInsets.all(10.0),
 //                    labelText: '请输入手机号',
 //                    labelStyle: TextStyle(fontSize: 20),
                     hintText: "请输入手机号",
-                    hintStyle: TextStyle(fontSize: ScreenAdapter.setFont(28),
+                    hintStyle: TextStyle(fontSize: ScreenAdapter().setFont(28),
                         color: Color(0xff999999)),
                 ),
                 onChanged: _onTextChange,

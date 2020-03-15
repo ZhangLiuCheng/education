@@ -23,7 +23,7 @@ class WidgetUtil {
                 child: Text(
                     text,
                     style: TextStyle(
-                        color: Colors.white, fontSize: ScreenAdapter.setFont(18)
+                        color: Colors.white, fontSize: ScreenAdapter().setFont(18)
                     ),
                 ),
             )
@@ -60,7 +60,7 @@ class WidgetUtil {
             child: AppBar(
                 title: Text(title,
                     style: TextStyle(
-                        fontSize: ScreenAdapter.setFont(40),
+                        fontSize: ScreenAdapter().setFont(40),
                         fontWeight: FontWeight.normal
                     )
                 ),
@@ -140,7 +140,7 @@ class WidgetUtil {
     static buildTabBar(List<Widget> tabs, TabController tabController,
         {double marginTop: 0, double marginBottom: 0, double marginLeft: 0, double marginRight: 0}) {
         return Container(
-            height: ScreenAdapter.setWidth(80),
+            height: ScreenAdapter().setWidth(80),
             margin: EdgeInsets.only(top: marginTop,
                 bottom: marginBottom,
                 left: marginLeft,
@@ -149,14 +149,14 @@ class WidgetUtil {
             color: Colors.white,
             child: TabBar(
                 unselectedLabelStyle: TextStyle(
-                    fontSize: ScreenAdapter.setFont(28),
+                    fontSize: ScreenAdapter().setFont(28),
                     fontWeight: FontWeight.normal,
                     color: Color(0xff333333),
                 ),
                 labelColor: Color(0xffff2c56),
                 unselectedLabelColor: Color(0xff333333),
                 labelStyle: TextStyle(
-                    fontSize: ScreenAdapter.setFont(28),
+                    fontSize: ScreenAdapter().setFont(28),
                     fontWeight: FontWeight.normal,
                     color: Color(0xFFFFFFFF)),
                 indicatorColor: Color(0xffff2c56),
